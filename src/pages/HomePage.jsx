@@ -12,23 +12,28 @@ const HomePage = (props) => {
 
     useEffect(()=>{
 
-        if (auth.userToken !== null){
-            fetchMessage()
-        } else {
-            setMessage("")
-        }
         const fetchMessage = async ()=> {
+
             const response = await fetch(`${urlEndpoint}/users/message`, {
+
                 method: 'GET',
                 headers: {
                     "Content-Type": "application/json",
                     [process.env.REACT_APP_TOKEN_HEADER_KEY]: auth.userToken
                 }
             })
-            setMessage(response)
+
+            const foo = await response.json()
+
+            setMessage(foo.message)
         }
 
-            
+        if (auth.userToken !== null){
+            fetchMessage()
+        } else {
+            setMessage("")
+        }
+
 
 
     }, [auth.userToken])
@@ -36,6 +41,7 @@ const HomePage = (props) => {
     return (
         <div className="home-page">
             <h1>Fullstack Auth Home Page</h1>
+            <h3>{message}</h3>
         </div>
     )
 }

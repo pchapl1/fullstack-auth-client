@@ -31,7 +31,9 @@ export const AuthProvider = ({ children }) => {
   // call this function when you want to authenticate the user
   const login = async (email, password) => {
     setIsAuthLoading(true);
+
     const loginResult = await loginUser(email, password);
+
     if (loginResult.success) {
       setLSUserData(loginResult.token, loginResult.email);
     }
@@ -48,11 +50,7 @@ export const AuthProvider = ({ children }) => {
     setIsAuthLoading(false);
   };
 
-  /*  
-    https://reactjs.org/docs/hooks-reference.html#usememo
-    Memoization is essentially caching. The variable value will only be recalculated if the 
-    variables in the watched array change.
-  */
+
   const value = useMemo(
     () => ({
       userToken,

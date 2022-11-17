@@ -26,12 +26,14 @@ const LoginPage = (props) => {
     }
 
     const login = async ()=> {
-        await auth.login(email, password);
-        if (login.success){
+
+        const loginResult = await auth.login(email, password);
+
+        if (loginResult.success === true){
             navigate('/')
         } 
-        if (!login.success){
-            setLoginMessage(login.message)
+        if (!loginResult.success){
+            setLoginMessage(loginResult.message)
         }
     }
 

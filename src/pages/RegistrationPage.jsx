@@ -27,12 +27,14 @@ const RegistrationPage = (props) => {
     }
 
     const register = async ()=> {
-        await auth.register(email, password);
-        if (register.success){
+
+        const registerResult = await auth.register(email, password);
+        
+        if (registerResult.success){
             navigate('/login')
         } 
-        if (!register.success){
-            setRegisterMessage(register.message)
+        if (!registerResult.success){
+            setRegisterMessage(registerResult.message)
         }
     }
 
